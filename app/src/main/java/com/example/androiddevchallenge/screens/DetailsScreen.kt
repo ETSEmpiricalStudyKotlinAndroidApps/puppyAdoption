@@ -3,8 +3,11 @@ package com.example.androiddevchallenge.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,12 +23,21 @@ fun DetailsScreen(puppy: Puppy?) {
         if (puppy == null) {
             Text(text = "No puppy found :(")
         } else {
-            Image(
-                painter = painterResource(id = puppy.imageId),
-                contentDescription = puppy.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Box {
+                Image(
+                    painter = painterResource(id = puppy.imageId),
+                    contentDescription = puppy.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Button(
+                    onClick = {},
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)
+                ) {
+                    Text(text = "ADOPT ME")
+                    Icon(Icons.Rounded.Favorite, "Heart", modifier = Modifier.padding(start = 8.dp))
+                }
+            }
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(text = puppy.name, fontSize = 24.sp, style = MaterialTheme.typography.h2)
                 Text(text = puppy.breed, fontSize = 16.sp, style = MaterialTheme.typography.h5)
@@ -34,9 +46,6 @@ fun DetailsScreen(puppy: Puppy?) {
                         .fillMaxWidth()
                         .height(32.dp)
                 )
-                Button(onClick = {}, modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                    Text(text = "ADOPT ME" )
-                }
             }
         }
     }
