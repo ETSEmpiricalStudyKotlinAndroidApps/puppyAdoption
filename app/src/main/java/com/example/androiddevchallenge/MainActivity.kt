@@ -18,11 +18,17 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.model.puppies
+import com.example.androiddevchallenge.screens.DetailsScreen
+import com.example.androiddevchallenge.screens.OverviewScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -36,12 +42,33 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-// Start building your app here!
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
-    }
+    val navController = rememberNavController()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "AdoptMe") },
+                backgroundColor = MaterialTheme.colors.primary
+            )
+        },
+        content = {
+            NavHost(navController = navController, startDestination = "overview") {
+                composable("overview") { OverviewScreen(navController) }
+                composable(
+                    "details/{puppyId}",
+                    arguments = listOf(navArgument("puppyId") {
+                        type = NavType.IntType
+                    })
+                ) { navBackStackEntry ->
+                    val puppy = puppies.find {
+                        it.id == navBackStackEntry.arguments?.getInt("puppyId")
+                    }
+                    DetailsScreen(puppy = puppy)
+                }
+            }
+        }
+    )
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
