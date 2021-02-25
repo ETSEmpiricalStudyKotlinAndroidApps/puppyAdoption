@@ -60,9 +60,11 @@ fun MyApp() {
                 composable("overview") { OverviewScreen(navController) }
                 composable(
                     "details/{puppyId}",
-                    arguments = listOf(navArgument("puppyId") {
-                        type = NavType.IntType
-                    })
+                    arguments = listOf(
+                        navArgument("puppyId") {
+                            type = NavType.IntType
+                        }
+                    )
                 ) { navBackStackEntry ->
                     val puppy = puppies.find {
                         it.id == navBackStackEntry.arguments?.getInt("puppyId")
