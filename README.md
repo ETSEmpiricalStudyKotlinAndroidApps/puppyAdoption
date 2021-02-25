@@ -1,6 +1,6 @@
 # PuppyAdoption
 
-![Workflow result](https://github.com/<raudonikis>/<puppyAdoption>/workflows/Check/badge.svg)
+![Workflow result](https://github.com/raudonikis/puppyAdoption/workflows/Check/badge.svg)
 
 
 ## :scroll: Description
